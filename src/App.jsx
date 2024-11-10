@@ -3,9 +3,7 @@ import Canvas from "./canvas";
 import data from "./data";
 import LocomotiveScroll from "locomotive-scroll";
 import { useEffect, useState, useRef } from "react";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Circ, Expo } from "gsap/all";
 
 function App() {
   const [showCanvas, setShowCanvas] = useState(false);
