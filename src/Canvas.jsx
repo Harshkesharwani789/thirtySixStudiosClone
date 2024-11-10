@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import canvasImages from "./Canvasimages";
+import canvasImages from "./canvasimages";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
@@ -57,8 +57,8 @@ function Canvas({ details }) {
       ref={canvasRef}
       className="absolute"
       style={{
-        width: `${size * 1.8}px`,
-        height: `${size * 1.8}px`,
+        width: `${size * 1.7}px`,
+        height: `${size * 1.7}px`,
         top: `${top}%`,
         left: `${left}%`,
         zIndex: `${zIndex}`,
