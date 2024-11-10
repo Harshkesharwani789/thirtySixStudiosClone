@@ -1,5 +1,5 @@
 import "./index.css";
-import Canvas from "./canvas";
+import Canvas from "./Canvas";
 import data from "./data";
 import LocomotiveScroll from "locomotive-scroll";
 import { useEffect, useState, useRef } from "react";

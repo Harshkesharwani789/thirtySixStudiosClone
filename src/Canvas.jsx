@@ -1,25 +1,28 @@
 import { useEffect, useRef, useState } from "react";
-import canvasImages from "./canvasimages";
+import canvasImages from "./Canvasimages";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 function Canvas({ details }) {
   const { startIndex, numImages, duration, size, top, left, zIndex } = details;
 
-  const [index, setIndex] = useState({ value: startIndex });
+  const [index, setIndex] = useState(startIndex);
   const canvasRef = useRef(null);
 
+  // Use GSAP for animation control
   useGSAP(() => {
+    // Animate the index state
     gsap.to(index, {
       value: startIndex + numImages - 1,
       duration: duration,
       repeat: -1,
       ease: "linear",
       onUpdate: () => {
-        setIndex({ value: Math.round(index.value) });
+        setIndex(Math.round(index)); // Update the index state on every frame
       },
     });
 
+    // Animate canvas fade-in effect
     gsap.from(canvasRef.current, {
       opacity: 0,
       duration: 1,
@@ -28,21 +31,24 @@ function Canvas({ details }) {
   });
 
   useEffect(() => {
+    // Adjust canvas size based on device pixel ratio
     const scale = window.devicePixelRatio;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const img = new Image();
-    img.src = canvasImages[index.value];
+    img.src = canvasImages[index];
+
     img.onload = () => {
       canvas.width = canvas.offsetWidth * scale;
       canvas.height = canvas.offsetHeight * scale;
-      canvas.style.width = canvas.offsetWidth + "px";
-      canvas.style.height = canvas.offsetHeight + "px";
+      canvas.style.width = `${canvas.offsetWidth}px`;
+      canvas.style.height = `${canvas.offsetHeight}px`;
 
+      // Ensure image is drawn with correct scaling
       ctx.scale(scale, scale);
       ctx.drawImage(img, 0, 0, canvas.offsetWidth, canvas.offsetHeight);
     };
-  }, [index]);
+  }, [index]); // Redraw image when index changes
 
   return (
     <canvas
